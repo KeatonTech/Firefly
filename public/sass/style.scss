@@ -523,16 +523,27 @@ div.pastSubmissions {
 
 
 // Upload Page
+@-webkit-keyframes CandyBar {
+	from { background-position: 0 0; }
+	to { background-position: 60px 0; }
+}
 div.uploadPresentation {
 	border-left: 2px solid $primary-yellow-dark;
 	color: #FFFFFF;
+	div.presentationDropZone {
+		margin: 1em 0 2em 0;
+		padding: 2em 0;
+		border: 1px dashed $content-text-light;
+		h1 {
+			font-style: normal;
+			text-align: center;
+		}
+		&.highlight {
+			border: 1px dashed $primary-yellow-light;
+		}
+	}
 	div.presentationUploader {
 		padding: 1em 0 0 1em;
-		h1 {
-			font-size: 16px;
-			font-style: italic;
-			margin-bottom: 1em;
-		}
 		input {
 			border-color: #FFFFFF;
 			margin-bottom: 1em;
@@ -550,15 +561,34 @@ div.uploadPresentation {
 			line-height: 14px;
 		}
 		progress {
+			-webkit-appearance: none !important;
 			display: none;
 			background-color: $primary-yellow-light;
 			width: 100%;
+			display: block;
+			position: relative;
+
 			&::-webkit-progress-bar {
 				background-color: $primary-yellow-light;
 			}
-			&::-webkit-progress-value {
-				background-color: $secondary-green;
-			}
+		}
+		progress[value]::after {
+			position: absolute;
+			top: 0;
+			content: "";
+			width: 100%;
+			height: 100%;
+			display: block;
+			background: linear-gradient(135deg, $secondary-green 25%, $primary-yellow-light 25%,
+				$primary-yellow-light 50%, $secondary-green 50%, $secondary-green 75%,
+				$primary-yellow-light 75%, $primary-yellow-light);
+			background-size: 60px 60px;
+			background-repeat: repeat;
+			animation: CandyBar 1s linear infinite;
+		}
+		span.upstart {
+			display: block;
+			margin: 0.5em 0;
 		}
 	}
 	ul.uploadOptions {
@@ -568,13 +598,13 @@ div.uploadPresentation {
 			&:last-child {
 				margin-bottom: 0;
 			}
-			a,input {
+			a, input {
 				width: 100%;
 				display: inline-block;
 				color: #FFFFFF;
 				text-decoration: none;
 				border-top: 1px solid $secondary-green;
-				padding: 1em 0 0 1em;
+				padding: 1em 0 0 16px;
 				font-style: italic;
 				&:hover {
 					color: $primary-yellow-light;
